@@ -1,0 +1,27 @@
+Upload a CBR/CBZ/ZIP file to the CloudReaders iPhone/iPad app. 
+==============================================================
+
+Requires the curl commandline tool.
+
+First turn on the WiFi upload facility, and note the host/IP and the port
+number. Make sure HOST and PORT are set correctly below.
+
+Then run the script with something like: 
+
+  cloudreaders_upload.sh *.cbr 
+
+
+Author:
+
+Dave Webb <cloudreaders.github@d5vd.com>
+
+
+License:
+    
+cloudreaders_upload.sh is free software. It comes without any warranty, to the
+extent permitted by applicable law.
+
+cloudreaders_upload.sh is released under the WTFPL Version 2.0 license -
+http://sam.zoy.org/wtfpl/COPYING
+
+0. You just DO WHAT THE FUCK YOU WANT TO.
