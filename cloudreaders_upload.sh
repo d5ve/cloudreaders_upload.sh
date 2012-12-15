@@ -23,8 +23,18 @@ PORT="8080"
 while true; do
     if [ "$1" ]; then
         COMIC="$1"
-        echo "Uploading '$COMIC'"
-        curl --silent --show-error -F "datafile=@$COMIC" http://$HOST:$PORT/post --output /dev/null
+        if [[ "$COMIC" =~ , ]]; then
+            # Filepath contains a , (comma) which currently prevents curl from
+            # uploading it.
+            SAFE_COMIC=/tmp/$(basename "$COMIC" | sed 's/,/ /g; s/  / /g')
+            ln -s "$COMIC" "$SAFE_COMIC"
+            echo "Filename '$COMIC' contains a comma, so uploading as '$SAFE_COMIC'"
+            curl --silent --show-error --form "datafile=@$SAFE_COMIC" http://$HOST:$PORT/post --output /dev/null
+            rm "$SAFE_COMIC"
+        else
+            echo "Uploading '$COMIC'"
+            curl --silent --show-error --form "datafile=@$COMIC" http://$HOST:$PORT/post --output /dev/null
+        fi
         shift
     else
         break
